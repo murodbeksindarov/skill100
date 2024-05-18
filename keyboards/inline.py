@@ -14,6 +14,7 @@ def premium_contents():
 
     prcon.insert(InlineKeyboardButton(text="Expected Passages 2024⚡", callback_data='Buy Something'))
     prcon.insert(InlineKeyboardButton(text=" 5 STARS ⚡", callback_data='Buy Something2'))
+    prcon.insert(InlineKeyboardButton(text="ULTIMATE READING MARATHON ⚡", callback_data='Buy Something3'))
 
 
     return prcon
