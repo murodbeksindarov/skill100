@@ -68,3 +68,28 @@ async def balance_handler(message: types.Message):
         
     else:
         await bot.send_message(message.from_user.id, f"You don't have enough points. You need to gain {amount_spent - int(user_balance)} more points !")
+@dp.callback_query_handler(text="Buy Something3")
+async def balance_handler(message: types.Message):
+    user_id = message.from_user.id
+    amount_spent = 15
+    await bot.delete_message(message.from_user.id, message.message.message_id)
+    user_balance = db.select_user(message.from_user.id)[0][4]
+
+    
+    
+    if user_balance is None:
+        user_balance = 0
+    if int(user_balance) >= amount_spent:
+            db.deduct_balance(user_id, amount_spent)
+            # Inform the user about the successful purchase
+            await bot.send_message(message.from_user.id, f"Your Purchase was successful‼✅\n\nYour updated balance: "
+                                                            f"{int(user_balance) - amount_spent} points")
+            chat_id = -1002139663305
+            invite_link = await bot.create_chat_invite_link(chat_id=chat_id, member_limit=1)
+            await bot.send_message(message.from_user.id, f"Here is your invite link: {invite_link.invite_link}")
+            
+            await bot.send_message(message.from_user.id, "Rahmat !")
+            
+        
+    else:
+        await bot.send_message(message.from_user.id, f"You don't have enough points. You need to gain {amount_spent - int(user_balance)} more points !")
